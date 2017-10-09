@@ -60,7 +60,7 @@ Mappings:
       "AMALINUX" : "ami-b777e4db" # AMALINUX SEP 2016
   InstanceSize:
     DEV:
-      "EC2" : "t2.micro"
+      "EC2" : "t2.medium"
     TEST:
       "EC2" : "t2.micro"
     PROD:
@@ -100,8 +100,8 @@ Resources:
         -
           CidrIp: 0.0.0.0/0
           IpProtocol: tcp
-          ToPort: "8080"
-          FromPort: "8080"
+          ToPort: "80"
+          FromPort: "80"
         -
           CidrIp: 0.0.0.0/0
           IpProtocol: tcp
