@@ -31,7 +31,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Join ["-", [!Ref ClassSection, IGW]]
-  S3AppBucket:
+  S3LambdaBucket:
     DeletionPolicy: Retain
     Type: "AWS::S3::Bucket"
     Properties:
@@ -43,7 +43,7 @@ Resources:
   BucketPolicyApp:
     Type: "AWS::S3::BucketPolicy"
     Properties:
-      Bucket: !Ref S3AppBucket
+      Bucket: !Ref S3LambdaBucket
       PolicyDocument:
         Statement:
           -
@@ -51,7 +51,7 @@ Resources:
             Action:
               - "s3:GetObject"
             Effect: Allow
-            Resource: !Join ["", ["arn:aws:s3:::", !Ref S3AppBucket, "/*"]]
+            Resource: !Join ["", ["arn:aws:s3:::", !Ref S3LambdaBucket, "/*"]]
             Principal:
               AWS:
                 - "*"
@@ -143,7 +143,12 @@ Outputs:
     Export: # added to export
       Name: sharedinf-privaterta
   appbucketurl:
-    Description: Shared Infrastructure App Bucket
-    Value: !GetAtt S3AppBucket.WebsiteURL
+    Description: Shared Infrastructure Labmda Bucket URL
+    Value: !GetAtt S3LambdaBucket.WebsiteURL
     Export: # added to export
       Name: sharedinf-appbucketurl
+  labmdabucket:
+    Description: Shared Infrastructure Labmda Bucket
+    Value: !GetAtt S3LambdaBucket
+    Export: # added to export
+      Name: sharedinf-lambdabucketname
