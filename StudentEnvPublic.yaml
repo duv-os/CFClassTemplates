@@ -117,7 +117,7 @@ Resources:
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
-      KeyName: AdvancedCFN
+      KeyName: SydneyKP
       SecurityGroupIds:
         - !Ref SG
       SubnetId: !Ref SubnetPublicA
