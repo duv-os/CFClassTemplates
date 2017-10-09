@@ -6,15 +6,19 @@ Metadata:
           default: "App Environment Configuration"
         Parameters:
           - ENVIRONMENT
-          - APPVERSION
+          - CLASS
           - MinSize
           - MaxSize
           - DesiredCapacity
 Parameters:
-  APPVERSION:
+  CLASS:
     Type: String
     Description: Application Version to Deploy
     Default: "1"
+  STUDENTNAME:
+    Type: String
+    Description: Name of student (Ex: akroll)
+    Default: "akroll"
   ENVIRONMENT:
     Type: String
     Description: Type of environment to provision
@@ -102,7 +106,7 @@ Resources:
   SG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
-      GroupDescription: !Join ["", ["Stack ", !Ref "AWS::StackId", " Application V", !Ref APPVERSION, " - ", !Ref ENVIRONMENT]]
+      GroupDescription: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSG", "  StackID: ", !Ref "AWS::StackId"]]
       VpcId: !ImportValue sharedinf-vpcid
       SecurityGroupIngress:
         -
