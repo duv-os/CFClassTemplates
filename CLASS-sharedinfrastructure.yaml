@@ -149,6 +149,6 @@ Outputs:
       Name: sharedinf-appbucketurl
   labmdabucket:
     Description: Shared Infrastructure Labmda Bucket
-    Value: !GetAtt S3LambdaBucket
+    Value: !Ref S3LambdaBucket
     Export: # added to export
       Name: sharedinf-lambdabucketname
