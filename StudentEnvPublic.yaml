@@ -14,10 +14,10 @@ Parameters:
   CLASS:
     Type: String
     Description: Application Version to Deploy
-    Default: "1"
+    Default: "ITSE-1359-1001"
   STUDENTNAME:
     Type: String
-    Description: Name of student (Ex: akroll)
+    Description: Name of student (Ex - akroll)
     Default: "akroll"
   ENVIRONMENT:
     Type: String
