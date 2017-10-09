@@ -143,12 +143,12 @@ Outputs:
     Export: # added to export
       Name: sharedinf-privaterta
   appbucketurl:
-    Description: Shared Infrastructure Labmda Bucket URL
+    Description: Shared Infrastructure App Bucket URL - Upload App files here
     Value: !GetAtt S3LambdaBucket.WebsiteURL
     Export: # added to export
       Name: sharedinf-appbucketurl
   labmdabucket:
-    Description: Shared Infrastructure Labmda Bucket
+    Description: Shared Infrastructure Labmda Bucket - upload Lambda Zip file here
     Value: !Ref S3LambdaBucket
     Export: # added to export
       Name: sharedinf-lambdabucketname
