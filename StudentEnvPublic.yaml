@@ -112,6 +112,10 @@ Resources:
           CidrIp: 0.0.0.0/0
           ToPort: "-1"
           IpProtocol: "-1"
+      Tags:
+        -
+          Key: Name
+          Value: Andy
   EC2: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
