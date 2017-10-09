@@ -118,7 +118,7 @@ Resources:
           Value: !Ref CLASS
         -
           Key: Name
-          Value: STUDENTNAME
+          Value: !Ref STUDENTNAME
   EC2: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
