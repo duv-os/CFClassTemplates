@@ -84,25 +84,12 @@ Resources:
       CidrBlock: !GetAtt AutoSubnetCustomResource.AppPublicCIDRA
       MapPublicIpOnLaunch: true
       VpcId: !ImportValue sharedinf-vpcid
-  SubnetPrivateA: # Private Subnet for App Env in AZ - A
-    Type: "AWS::EC2::Subnet"
-    Properties:
-      AvailabilityZone: !Select [0, !GetAZs ]
-      CidrBlock: !GetAtt AutoSubnetCustomResource.AppPrivateCIDRA
-      MapPublicIpOnLaunch: false
-      VpcId: !ImportValue sharedinf-vpcid
   SubnetRouteTableAssociatePublicA: # Associates the subnet with a route table - passed via import
     DependsOn: SubnetPublicA
     Type: "AWS::EC2::SubnetRouteTableAssociation"
     Properties:
       RouteTableId: !ImportValue sharedinf-publicrt
       SubnetId: !Ref SubnetPublicA
-  SubnetRouteTableAssociatePrivateA: # Associates the subnet with a route table - passed via parameter
-    DependsOn: SubnetPrivateA
-    Type: "AWS::EC2::SubnetRouteTableAssociation"
-    Properties:
-      RouteTableId: !ImportValue sharedinf-privaterta
-      SubnetId: !Ref SubnetPrivateA # Associates the subnet with a route table - passed via parameter
   SG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -117,8 +104,8 @@ Resources:
         -
           CidrIp: 0.0.0.0/0
           IpProtocol: tcp
-          ToPort: "22"
-          FromPort: "22"
+          ToPort: "3389"
+          FromPort: "3389"
       SecurityGroupEgress:
         -
           CidrIp: 0.0.0.0/0
