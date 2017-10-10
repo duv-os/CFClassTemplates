@@ -90,7 +90,7 @@ Resources:
     Properties:
       RouteTableId: !ImportValue sharedinf-privaterta
       SubnetId: !Ref SubnetPrivateA
-  SG:
+  PrivateSG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupName: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSG", "  StackID: ", !Ref "AWS::StackId"]]
@@ -127,7 +127,7 @@ Resources:
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:
-        - !Ref SG
+        - !Ref PrivateSG
       SubnetId: !Ref SubnetPrivateA
       Tags:
         -
