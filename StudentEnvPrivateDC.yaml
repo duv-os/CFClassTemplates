@@ -77,7 +77,7 @@ Resources:
       DynamoDBTable: !ImportValue sharedinf-autosubnetddbtablename
       VPCCidr: !ImportValue sharedinf-vpciprange
       Debug: "True"
-  SubnetPublicA: # Public Subnet for App Env in AZ - A
+  SubnetPrivateA: # Public Subnet for App Env in AZ - A
     Type: "AWS::EC2::Subnet"
     Properties:
       AvailabilityZone: !Select [0, !GetAZs ]
@@ -85,11 +85,11 @@ Resources:
       MapPublicIpOnLaunch: true
       VpcId: !ImportValue sharedinf-vpcid
   SubnetRouteTableAssociatePublicA: # Associates the subnet with a route table - passed via import
-    DependsOn: SubnetPublicA
+    DependsOn: SubnetPrivateA
     Type: "AWS::EC2::SubnetRouteTableAssociation"
     Properties:
-      RouteTableId: !ImportValue sharedinf-publicrt
-      SubnetId: !Ref SubnetPublicA
+      RouteTableId: !ImportValue sharedinf-privaterta
+      SubnetId: !Ref SubnetPrivateA
   SG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -128,7 +128,7 @@ Resources:
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:
         - !Ref SG
-      SubnetId: !Ref SubnetPublicA
+      SubnetId: !Ref SubnetPrivateA
       Tags:
         -
           Key: Class
