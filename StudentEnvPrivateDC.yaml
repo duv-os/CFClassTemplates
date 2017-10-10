@@ -98,18 +98,18 @@ Resources:
       VpcId: !ImportValue sharedinf-vpcid
       SecurityGroupIngress:
         -
-          CidrIp: 0.0.0.0/0
           IpProtocol: tcp
           ToPort: "80"
           FromPort: "80"
+          SourceSecurityGroupName: !ImportValue PublicSG
         -
-          CidrIp: 0.0.0.0/0
+          SourceSecurityGroupName: !ImportValue PublicSG
           IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
         -
-          CidrIp: 0.0.0.0/0
+          SourceSecurityGroupName: !ImportValue PublicSG
           ToPort: "-1"
           IpProtocol: "-1"
       Tags:
