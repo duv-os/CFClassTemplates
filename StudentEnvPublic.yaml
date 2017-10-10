@@ -136,3 +136,9 @@ Resources:
         -
           Key: Name
           Value: !Ref STUDENTNAME
+Outputs:
+  PublicSG:
+    Description: Public Security Group ID
+    Value: !Ref SG
+    Export: # added to export
+      Name: studentpublicsg
