@@ -1,0 +1,1 @@
+New-CFNStack -Stackname "TestingPSCFNStack" -TemplateURL "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/2017283GOL-StudentEnvPrivateDC.yaml" -Parameter @{ ParameterKey="STUDENTNAME"; ParameterValue="testuser" } -Region ap-southeast-2
