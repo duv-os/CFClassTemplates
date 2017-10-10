@@ -142,7 +142,7 @@ Outputs:
     Value: !Ref RouteTablePrivateA
     Export: # added to export
       Name: sharedinf-privaterta
-  appbucketurl:
+  lambdabucketurl:
     Description: Shared Infrastructure App Bucket URL - Upload App files here
     Value: !GetAtt S3LambdaBucket.WebsiteURL
     Export: # added to export
