@@ -101,15 +101,15 @@ Resources:
           IpProtocol: tcp
           ToPort: "80"
           FromPort: "80"
-          SourceSecurityGroupName: !ImportValue PublicSG
+          SourceSecurityGroupName: !ImportValue studentpublicsg
         -
-          SourceSecurityGroupName: !ImportValue PublicSG
+          SourceSecurityGroupName: !ImportValue studentpublicsg
           IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
         -
-          SourceSecurityGroupName: !ImportValue PublicSG
+          SourceSecurityGroupName: !ImportValue studentpublicsg
           ToPort: "-1"
           IpProtocol: "-1"
       Tags:
