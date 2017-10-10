@@ -6,7 +6,6 @@ $PublicTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm8
 
 param(
     # Parameter help description
-    [String]
     $Environment
 )
 
