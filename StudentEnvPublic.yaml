@@ -141,4 +141,4 @@ Outputs:
     Description: Public Security Group ID
     Value: !Ref SG
     Export: # added to export
-      Name: studentpublicsg
+      Name: !Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]

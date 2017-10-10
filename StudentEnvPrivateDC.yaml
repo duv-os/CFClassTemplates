@@ -101,15 +101,15 @@ Resources:
           IpProtocol: tcp
           ToPort: "80"
           FromPort: "80"
-          SourceSecurityGroupId: !ImportValue studentpublicsg
+          SourceSecurityGroupId: !ImportValue [!Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]]
         -
-          SourceSecurityGroupId: !ImportValue studentpublicsg
+          SourceSecurityGroupId: !ImportValue [!Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]]
           IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
         -
-          SourceSecurityGroupId: !ImportValue studentpublicsg
+          SourceSecurityGroupId: !ImportValue [!Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]]
           ToPort: "-1"
           IpProtocol: "-1"
       Tags:
