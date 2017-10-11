@@ -34,9 +34,9 @@ elseif ($Environment -eq "Bastion") {
 }
 elseif ($Environment -eq "Private") {
     foreach ($student in $roster) {
-        write-host "Creating Private DC CFN stack for $student"
+        write-Verbose "Creating Private DC CFN stack for $student"
         New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" } -Region $region
-        Write-Host "Finished creating stack for $student"
+        Write-Verbose "Finished creating stack for $student"
         pause
     }
 }
