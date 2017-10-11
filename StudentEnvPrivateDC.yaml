@@ -82,7 +82,7 @@ Resources:
     Properties:
       AvailabilityZone: !Select [0, !GetAZs ]
       CidrBlock: !GetAtt AutoSubnetCustomResource.AppPublicCIDRA
-      MapPublicIpOnLaunch: true
+      MapPublicIpOnLaunch: false
       VpcId: !ImportValue sharedinf-vpcid
   SubnetRouteTableAssociatePublicA: # Associates the subnet with a route table - passed via import
     DependsOn: SubnetPrivateA
