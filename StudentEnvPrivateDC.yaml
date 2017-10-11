@@ -49,7 +49,8 @@ Mappings:
     ap-southeast-1:
       "AMALINUX" : "ami-7243e611" # AMALINUX SEP 2016
     ap-southeast-2:
-      "AMALINUX" : "ami-8536d6e7" # Windows Server 2016 OCT 2017
+      "AMALINUX" : "ami-8536d6e7" # AMALINUX OCT 2017
+      "SERVER2016" : "ami-663bdc04" # SERVER 2016 OCT 2017
     ap-northeast-2:
       "AMALINUX" : "ami-a04297ce" # AMALINUX SEP 2016
     ap-northeast-1:
