@@ -93,7 +93,7 @@ Resources:
   SG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
-      GroupName: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSG", "  StackID: ", !Ref "AWS::StackId"]]
+      GroupName: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSG"]]
       GroupDescription: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSG", "  StackID: ", !Ref "AWS::StackId"]]
       VpcId: !ImportValue sharedinf-vpcid
       SecurityGroupIngress:
