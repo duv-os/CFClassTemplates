@@ -19,7 +19,7 @@ elseif ($Environment -eq "AutoSubnet") {
     Write-Verbose -Message "Getting Outputs from $Class-SharedInfStack"
     $url = get-cfnstack -Region ap-southeast-2 | where {$_.StackName -like "*$Class*"} | select -expand  outputs | Where {$_.OutputKey -eq "lambdabucket"}
     Copy-S3Object -BucketName "cf-templates-1pkm851dfqt55-ap-southeast-2" -Key autosubnet.zip -DestinationKey autosubnet.zip -DestinationBucket $url.OutputValue -Region $Region
-    New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL -Region $Region
+    New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL -Region $Region -Capability CAPABILITY_IAM
 }
 elseif ($Environment -eq "Bastion") {
     foreach ($student in $roster) {
