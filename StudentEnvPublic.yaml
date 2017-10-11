@@ -68,11 +68,11 @@ Mappings:
       "AMALINUX" : "ami-b777e4db" # AMALINUX SEP 2016
   InstanceSize:
     DEV:
-      "EC2" : "t2.medium"
+      "EC2" : "t2.micro"
     TEST:
       "EC2" : "t2.micro"
     PROD:
-      "EC2" : "t2.medium"
+      "EC2" : "t2.micro"
     PRESALES:
       "EC2" : "t2.micro"
 Resources:
