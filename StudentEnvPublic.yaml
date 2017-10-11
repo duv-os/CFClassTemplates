@@ -72,7 +72,7 @@ Mappings:
     TEST:
       "EC2" : "t2.micro"
     PROD:
-      "EC2" : "t2.micro"
+      "EC2" : "t2.medium"
     PRESALES:
       "EC2" : "t2.micro"
 Resources:
