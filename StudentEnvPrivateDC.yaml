@@ -125,7 +125,7 @@ Resources:
         -
           Key: Name
           Value: !Ref STUDENTNAME
-  EC2-DC: # for now this is in a public subnet, needs to be changed.
+  EC2DC: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
@@ -145,7 +145,7 @@ Resources:
         -
           Key: ServerType
           Value: DC
-  EC2-Web1: # for now this is in a public subnet, needs to be changed.
+  EC2Web1: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
@@ -165,7 +165,7 @@ Resources:
         -
           Key: ServerType
           Value: Web1
-  EC2-Share1: # for now this is in a public subnet, needs to be changed.
+  EC2Share1: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
@@ -185,7 +185,7 @@ Resources:
         -
           Key: ServerType
           Value: Share1
-  EC2-App1: # for now this is in a public subnet, needs to be changed.
+  EC2App1: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
