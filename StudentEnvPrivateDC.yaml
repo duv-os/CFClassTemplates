@@ -101,15 +101,18 @@ Resources:
           IpProtocol: tcp
           ToPort: "80"
           FromPort: "80"
-          SourceSecurityGroupId: Fn::ImportValue: !Sub "studentpublicsg-${STUDENTNAME}"
+          SourceSecurityGroupId: Fn::ImportValue:
+            !Sub "studentpublicsg-${STUDENTNAME}"
         -
-          SourceSecurityGroupId: Fn::ImportValue: !Sub "studentpublicsg-${STUDENTNAME}"
+          SourceSecurityGroupId: Fn::ImportValue:
+            !Sub "studentpublicsg-${STUDENTNAME}"
           IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
         -
-          SourceSecurityGroupId: Fn::ImportValue: !Sub "studentpublicsg-${STUDENTNAME}"
+          SourceSecurityGroupId: Fn::ImportValue:
+            !Sub "studentpublicsg-${STUDENTNAME}"
           ToPort: "-1"
           IpProtocol: "-1"
       Tags:
