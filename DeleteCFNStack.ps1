@@ -4,4 +4,4 @@ param(
 )
 
 
-get-cfnstack -region $region | where {$_.stackname -like "*$Environment*"} | remove-cfnstack -region $region
+get-cfnstack -region $region | where {$_.stackname -like "*$Environment*"} | remove-cfnstack -region $region -Force
