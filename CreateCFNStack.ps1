@@ -7,7 +7,6 @@ param (
     $Region = "ap-southeast-2",
     [Parameter(Mandatory = $True)]
     $Class = "ITSE-1359-1001",
-    [Parameter(Mandatory = $True)]
     [ValidateSet ("AMALINUX","SERVER2016")]
     $ServerOS
 )
