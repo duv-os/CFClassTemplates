@@ -8,7 +8,7 @@ param(
 
 if ($Environment -eq "SharedInf") {
     $bucket = get-cfnstack -Region $region | where {$_.StackName -like "*$Environment*"} | select -expand  outputs | Where {$_.OutputKey -eq "lambdabucket"}
-    Remove-S3Bucket -BucketName $bucket.OutputValue -deletebucketcontent
+    Remove-S3Bucket -BucketName $bucket.OutputValue -deletebucketcontent -Force
     get-cfnstack -region $region | where {$_.stackname -like "*$Environment*"} | remove-cfnstack -region $region -Force
 }
 else {
