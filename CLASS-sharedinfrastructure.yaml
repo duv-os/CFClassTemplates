@@ -3,6 +3,7 @@ Parameters:
   ClassSection: # this is the only parameter changed - AWS specific type
     Type: String
     Description: Class Name and Section in the format ITSE-1359-1001
+    Default: ITSE-1359-1001
   vpccidr:
     Type: String
     MinLength: 9
