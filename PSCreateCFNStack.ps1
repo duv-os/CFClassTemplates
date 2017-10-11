@@ -12,11 +12,11 @@ $BastionTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm
 
 
 if ($Environment -eq "SharedInf") {
-    New-CFNStack -StackName "$Class-SharedInf" -TemplateURL $SharedInfTemplateURL 
+    New-CFNStack -StackName "$Class-SharedInf" -TemplateURL $SharedInfTemplateURL -Region $Region 
 }
 
 elseif ($Environment -eq "AutoSubnet") {
-    New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL
+    New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL -Region $Region
 }
 elseif ($Environment -eq "Bastion") {
     foreach ($student in $roster) {
