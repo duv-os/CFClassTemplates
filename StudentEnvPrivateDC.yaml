@@ -28,6 +28,13 @@ Parameters:
       - TEST
       - PROD
       - PRESALES
+  SERVEROS:
+    Type: String
+    Description: Server Operating System to deploy 
+    Default: AMALINUX
+    AllowedValues:
+      - AMALINUX
+      - SERVER2016
 Mappings:
   RegionMap:
     us-east-1:
@@ -130,7 +137,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:
@@ -150,7 +157,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:
@@ -170,7 +177,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:
@@ -190,7 +197,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       SecurityGroupIds:

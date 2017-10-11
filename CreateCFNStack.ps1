@@ -6,7 +6,10 @@ param (
     [Parameter(Mandatory = $True)]
     $Region = "ap-southeast-2",
     [Parameter(Mandatory = $True)]
-    $Class = "ITSE-1359-1001"
+    $Class = "ITSE-1359-1001",
+    [Parameter(Mandatory = $True)]
+    [ValidateSet ("AMALINUX","SERVER2016")]
+    $ServerOS
 )
 $roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
 $SharedInfTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/CLASS-sharedinfrastructure.yaml"
@@ -30,7 +33,7 @@ elseif ($Environment -eq "AutoSubnet") {
 elseif ($Environment -eq "Bastion") {
     foreach ($student in $roster) {
         write-Verbose "Creating Public CFN stack for $student"
-        New-CFNStack -Stackname "$Class-$student-Bastion" -TemplateURL $BastionTemplateURL -Parameter @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" } -Region $region
+        New-CFNStack -Stackname "$Class-$student-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
         Write-Verbose "Finished creating stack for $student"
         pause
     }
@@ -38,7 +41,7 @@ elseif ($Environment -eq "Bastion") {
 elseif ($Environment -eq "Private") {
     foreach ($student in $roster) {
         write-Verbose "Creating Private DC CFN stack for $student"
-        New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" } -Region $region
+        New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
         Write-Verbose "Finished creating stack for $student"
         pause
     }
