@@ -5,6 +5,8 @@ param (
 $roster = Get-Content "C:\temp\roster-lower.txt"
 $Region = "ap-southeast-2"
 $Class = "ITSE-1359-1001"
+$SharedInfTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/CLASS-sharedinfrastructure.yaml"
+$AutoSubnetTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/autosubnet.yaml"
 $PrivateDCTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPrivateDC.yaml"
 $BastionTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPublic.yaml"
 
