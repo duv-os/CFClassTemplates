@@ -1,7 +1,10 @@
 param (
     # Parameter help description
+    [Parameter(Mandatory=$True)]
     $Environment,
+    [Parameter(Mandatory = $True)]
     $Region = "ap-southeast-2",
+    [Parameter(Mandatory = $True)]
     $Class = "ITSE-1359-1001"
 )
 $roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
