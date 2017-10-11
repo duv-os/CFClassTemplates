@@ -14,7 +14,7 @@ foreach ($student in $roster)
     if ($Environment -eq "Bastion") {
         
         write-host "Creating Public CFN stack for $student"
-        New-CFNStack -Stackname "$Class-$student-Public" -TemplateURL $BastionTemplateURL -Parameter @{ ParameterKey="STUDENTNAME"; ParameterValue="$student" } -Region $region
+        New-CFNStack -Stackname "$Class-$student-Bastion" -TemplateURL $BastionTemplateURL -Parameter @{ ParameterKey="STUDENTNAME"; ParameterValue="$student" } -Region $region
         Write-Host "Finished creating stack for $student"
         pause
     }
