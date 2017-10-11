@@ -1,5 +1,7 @@
 param(
+    [Parameter(Mandatory=$True)]
     $region = "ap-southeast-2",
+    [Parameter(Mandatory=$True)]
     $Environment
 )
 
