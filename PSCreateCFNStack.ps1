@@ -1,6 +1,7 @@
 param (
     # Parameter help description
     [Parameter(Mandatory=$True)]
+    [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
     $Environment,
     [Parameter(Mandatory = $True)]
     $Region = "ap-southeast-2",
