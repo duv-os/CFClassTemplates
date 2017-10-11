@@ -26,9 +26,9 @@ elseif ($Environment -eq "AutoSubnet") {
 }
 elseif ($Environment -eq "Bastion") {
     foreach ($student in $roster) {
-        write-host "Creating Public CFN stack for $student"
+        write-Verbose "Creating Public CFN stack for $student"
         New-CFNStack -Stackname "$Class-$student-Bastion" -TemplateURL $BastionTemplateURL -Parameter @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" } -Region $region
-        Write-Host "Finished creating stack for $student"
+        Write-Verbose "Finished creating stack for $student"
         pause
     }
 }
