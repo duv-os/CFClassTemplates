@@ -49,7 +49,7 @@ Mappings:
     ap-southeast-1:
       "AMALINUX" : "ami-7243e611" # AMALINUX SEP 2016
     ap-southeast-2:
-      "AMALINUX" : "ami-663bdc04" # Windows Server 2016 OCT 2017
+      "AMALINUX" : "ami-8536d6e7" # Windows Server 2016 OCT 2017
     ap-northeast-2:
       "AMALINUX" : "ami-a04297ce" # AMALINUX SEP 2016
     ap-northeast-1:
@@ -60,11 +60,11 @@ Mappings:
       "AMALINUX" : "ami-b777e4db" # AMALINUX SEP 2016
   InstanceSize:
     DEV:
-      "EC2" : "t2.medium"
+      "EC2" : "t2.micro"
     TEST:
       "EC2" : "t2.micro"
     PROD:
-      "EC2" : "t2.medium"
+      "EC2" : "t2.micro"
     PRESALES:
       "EC2" : "t2.micro"
 Resources:
