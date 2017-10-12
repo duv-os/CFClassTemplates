@@ -92,6 +92,10 @@ Resources:
       CidrBlock: !GetAtt AutoSubnetCustomResource.AppPublicCIDRA
       MapPublicIpOnLaunch: true
       VpcId: !ImportValue sharedinf-vpcid
+      Tags:
+        -
+          Key: Name
+          Value: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSubnet"]]
   SubnetRouteTableAssociatePublicA: # Associates the subnet with a route table - passed via import
     DependsOn: SubnetPublicA
     Type: "AWS::EC2::SubnetRouteTableAssociation"
