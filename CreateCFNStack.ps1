@@ -3,11 +3,14 @@ param (
     [Parameter(Mandatory=$True)]
     [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
     $Environment,
+
     [Parameter(Mandatory = $True)]
     [ValidateSet ("us-east-2", "us-east-1", "us-west-1", "us-west-2", "ca-central-1", "ap-south-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "eu-central-1", "eu-west-1", "eu-west-2", "sa-east-1")]
     $Region = "ap-southeast-2",
+
     [Parameter(Mandatory = $True)]
     $Class = "ITSE-1359-1001",
+    
     [ValidateSet ("AMALINUX","SERVER2016")]
     $ServerOS
 )
