@@ -134,6 +134,12 @@ Resources:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
+      BlockDeviceMappings:
+        - 
+          DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 30
+            VolumeType: standard
       SecurityGroupIds:
         - !Ref SG
       SubnetId: !Ref SubnetPublicA
