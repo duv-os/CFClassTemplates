@@ -10,11 +10,21 @@ param (
 
     [Parameter(Mandatory = $True)]
     $Class = "ITSE-1359-1001",
-    
+
+    $studentname,
+
     [ValidateSet ("AMALINUX","SERVER2016")]
     $ServerOS
 )
-$roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
+
+if (!$studentname) {
+    $roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
+}
+elseif ($studentname) {
+    $roster = $studentname
+}
+
+
 $SharedInfTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/CLASS-sharedinfrastructure.yaml"
 $AutoSubnetTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/autosubnet.yaml"
 $PrivateDCTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPrivateDC.yaml"
