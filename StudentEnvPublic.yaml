@@ -95,7 +95,7 @@ Resources:
       Tags:
         -
           Key: Name
-          Value: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-", "PublicSubnet"]]
+          Value: !Join ["", [!Ref CLASS, "-", !Ref STUDENTNAME, "-PublicSubnet"]]
   SubnetRouteTableAssociatePublicA: # Associates the subnet with a route table - passed via import
     DependsOn: SubnetPublicA
     Type: "AWS::EC2::SubnetRouteTableAssociation"
