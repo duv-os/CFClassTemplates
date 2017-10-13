@@ -65,7 +65,9 @@ Mappings:
     ap-south-1:
       "AMALINUX" : "ami-cacbbea5" # AMALINUX SEP 2016
     sa-east-1:
-      "AMALINUX" : "ami-b777e4db" # AMALINUX SEP 2016
+      "AMALINUX" : "ami-f1344b9d" # AMALINUX SEP 2016
+      "RH" : "ami-a789ffcb"
+      "SERVER2016" : "ami-1d364b71"
   InstanceSize:
     DEV:
       "EC2" : "t2.micro"
