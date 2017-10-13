@@ -165,6 +165,9 @@ Resources:
         -
           Key: ServerType
           Value: Bastion
+        -
+          Key: ServerOS
+          Value: !Ref SERVEROS
 Outputs:
   PublicSG:
     Description: Public Security Group ID
