@@ -18,7 +18,7 @@ param (
 )
 
 if (!$studentname) {
-    $roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
+    $roster = Get-Content "E:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\Roster-Lower.txt"
 }
 elseif ($studentname) {
     $roster = $studentname
