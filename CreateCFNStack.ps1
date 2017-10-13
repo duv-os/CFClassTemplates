@@ -13,7 +13,7 @@ param (
 
     $studentname,
 
-    [ValidateSet ("AMALINUX","SERVER2016")]
+    [ValidateSet ("AMALINUX","SERVER2016", "RH")]
     $ServerOS
 )
 
