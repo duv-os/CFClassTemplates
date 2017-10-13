@@ -120,6 +120,11 @@ Resources:
         -
           CidrIp: 0.0.0.0/0
           IpProtocol: tcp
+          ToPort: "22"
+          FromPort: "22"
+        -
+          CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
