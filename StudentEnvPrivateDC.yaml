@@ -127,7 +127,7 @@ Resources:
       SecurityGroupEgress:
           ToPort: "-1"
           IpProtocol: "-1"
-          CidrIP: "0.0.0.0/0"
+          CidrIp: "0.0.0.0/0"
       Tags:
         -
           Key: Class
