@@ -46,7 +46,7 @@ Mappings:
       "AMALINUX" : "ami-de347abe" # AMALINUX SEP 2016
     us-west-2:
       "AMALINUX" : "ami-b04e92d0" # AMALINUX SEP 2016
-      "SERVER2016" : "ami-47897a3f"
+      
     ca-central-1:
       "AMALINUX" : "ami-eb20928f" # AMALINUX SEP 2016 v01
     eu-west-1:
@@ -163,3 +163,9 @@ Resources:
         -
           Key: ServerOS
           Value: !Ref SERVEROS
+Outputs:		
+ PublicSG:		
+  Description: Public Security Group ID		
+   Value: !Ref SG		
+   Export: # added to export		
+     Name: !Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]] 
