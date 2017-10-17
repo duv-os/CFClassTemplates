@@ -54,7 +54,8 @@ elseif ($Environment -eq "Bastion") {
 elseif ($Environment -eq "Private") {
     foreach ($student in $roster) {
         write-Verbose "Creating Private DC CFN stack for $student"
-        Update-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
+        $Stack = Get-CFNStack | Where-Object {$_.StackName -like "*$student-PrivateServers*"}
+        Update-CFNStack -stackname $Stack.StackId -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
         Write-Verbose "Finished creating stack for $student"
         pause
     }
