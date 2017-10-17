@@ -46,7 +46,7 @@ Mappings:
       "AMALINUX" : "ami-de347abe" # AMALINUX SEP 2016
     us-west-2:
       "AMALINUX" : "ami-b04e92d0" # AMALINUX SEP 2016
-      
+      "SERVER2016" : "ami-47897a3f"
     ca-central-1:
       "AMALINUX" : "ami-eb20928f" # AMALINUX SEP 2016 v01
     eu-west-1:
