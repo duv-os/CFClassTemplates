@@ -163,7 +163,7 @@ Resources:
         -
           Key: ServerOS
           Value: !Ref SERVEROS
-Outputs:		
+Outputs:
  PublicSG:		
   Description: Public Security Group ID		
    Value: !Ref SG		
