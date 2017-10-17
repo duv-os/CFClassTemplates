@@ -125,12 +125,9 @@ Resources:
           ToPort: "3389"
           FromPort: "3389"
       SecurityGroupEgress:
-        -
-          SourceSecurityGroupId:
-            Fn::ImportValue:
-              !Sub "studentpublicsg-${STUDENTNAME}"
           ToPort: "-1"
           IpProtocol: "-1"
+          CidrIP: "0.0.0.0/0"
       Tags:
         -
           Key: Class
