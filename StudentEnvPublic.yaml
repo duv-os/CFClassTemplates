@@ -164,8 +164,8 @@ Resources:
           Key: ServerOS
           Value: !Ref SERVEROS
 Outputs:
- PublicSG:
-  Description: Public Security Group ID
-   Value: !Ref SG
-   Export: # added to export
-     Name: !Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]
+  PublicSG:
+    Description: Public SG ID
+    Value: !Ref SG
+    Export:
+      Name: !Join ["", [studentpublicsg, "-", !Ref STUDENTNAME]]
