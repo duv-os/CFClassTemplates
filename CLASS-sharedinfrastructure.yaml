@@ -153,3 +153,8 @@ Outputs:
     Value: !Ref S3LambdaBucket
     Export: # added to export
       Name: sharedinf-lambdabucketname
+  ngweip:
+    Description: Elastic IP for the NGW
+    Value: !Ref EIPNatGWA
+    Export: # added to export
+      Name: eipngw
