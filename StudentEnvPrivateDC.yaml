@@ -114,12 +114,12 @@ Resources:
           IpProtocol: tcp
           ToPort: "80"
           FromPort: "80"
-          SourceSecurityGroupId: !Join ["", [!ImportValue: eipngw, "/32"]]
+          SourceSecurityGroupId: !Join ["", [!ImportValue eipngw, "/32"]]
         -
           IpProtocol: tcp
           ToPort: "443"
           FromPort: "443"
-          SourceSecurityGroupId: !Join ["", [!ImportValue: eipngw, "/32"]]
+          SourceSecurityGroupId: !Join ["", [!ImportValue eipngw, "/32"]]
         -
           SourceSecurityGroupId:
             Fn::ImportValue:
