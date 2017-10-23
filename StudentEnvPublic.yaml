@@ -146,7 +146,7 @@ Resources:
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
-      KeyName: WomenInTechnology
+      KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       IamInstanceProfile: Class-SSM-Role
       SecurityGroupIds:
         - !Ref SG
