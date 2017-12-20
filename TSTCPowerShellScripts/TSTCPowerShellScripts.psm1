@@ -87,3 +87,15 @@ function New-TSTCStudent {
     }
     
 } #function
+
+function New-TSTCStudentKeyPair {
+    
+
+    foreach ($student in $roster) {
+
+        (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\$Class-KP-$student.pem
+        Write-Host "Key Pair created for $student"
+
+    }
+
+}
