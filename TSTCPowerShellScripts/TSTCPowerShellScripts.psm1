@@ -24,7 +24,7 @@ function New-TSTCStudent {
         This example will create 2 new IAM user accounts
     .NOTES
         Version      : 1.0.0
-        Last Updated : 12/19/2017
+        Last Updated : 12/20/2017
         Script created by Andy Kroll, Lead Instructor CDM
     #>
 
