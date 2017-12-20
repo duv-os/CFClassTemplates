@@ -92,12 +92,10 @@ function New-TSTCStudentKeyPair {
     param(
         # Parameter help description
         [Parameter(Mandatory = $true)]
-        [ParameterType]
         $Region,
         
         # Parameter help description
         [Parameter(Mandatory = $true)]
-        [ParameterType]
         $Class,
 
         # Parameter help description
@@ -107,7 +105,6 @@ function New-TSTCStudentKeyPair {
 
         # Parameter help description
         [Parameter(Mandatory = $true)]
-        [ParameterType]
         $Path
     )    
 
