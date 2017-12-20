@@ -119,8 +119,8 @@ function New-TSTCStudentKeyPair {
     PROCESS {
         foreach ($student in $roster) {
             
-            (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\$Class-KP-$student.pem
-            Write-Host "Key Pair created for $student"
+            (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii $Path\$Class-KP-$student.pem
+            Write-Verbose -Message "Key Pair created for $student"
         }
 
         END {
