@@ -101,9 +101,9 @@ function New-TSTCStudentKeyPair {
         $Class,
 
         # Parameter help description
-        [Parameter(Mandatory=$true)]
+        [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
         [ParameterType]
-        $Roster,
+        [string]$Roster,
 
         # Parameter help description
         [Parameter(Mandatory = $true)]
