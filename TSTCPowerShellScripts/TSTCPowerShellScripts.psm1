@@ -102,7 +102,7 @@ function New-TSTCStudentKeyPair {
 
         # Parameter help description
         [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
-        [ParameterType]
+        [Alias('Students', 'Name', 'Names', 'UserName')]
         [string]$Roster,
 
         # Parameter help description
@@ -111,10 +111,21 @@ function New-TSTCStudentKeyPair {
         $Path
     )    
 
-    foreach ($student in $roster) {
+    
+    Begin {
+        #intentionally empty
+    }
+    
+    PROCESS {
+        foreach ($student in $roster) {
+            
+            (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\$Class-KP-$student.pem
+            Write-Host "Key Pair created for $student"
+        }
 
-        (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\$Class-KP-$student.pem
-        Write-Host "Key Pair created for $student"
+        END {
+            #intentionally empty
+        }
 
     }
 
