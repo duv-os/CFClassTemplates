@@ -89,7 +89,27 @@ function New-TSTCStudent {
 } #function
 
 function New-TSTCStudentKeyPair {
-    
+    param(
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [ParameterType]
+        $Region,
+        
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [ParameterType]
+        $Class,
+
+        # Parameter help description
+        [Parameter(Mandatory=$true)]
+        [ParameterType]
+        $Roster,
+
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [ParameterType]
+        $Path
+    )    
 
     foreach ($student in $roster) {
 
