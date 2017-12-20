@@ -25,7 +25,7 @@ function New-TSTCStudent {
     .NOTES
         Version      : 1.0.0
         Last Updated : 12/20/2017
-        Script created by Andy Kroll, Lead Instructor CDM
+        Script created by Andy Kroll, Lead Instructor CDM Department
     #>
 
     [cmdletbinding()]
