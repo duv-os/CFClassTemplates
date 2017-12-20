@@ -120,10 +120,10 @@ function New-TSTCStudentKeyPair {
             Write-Verbose -Message "Key Pair created for $student"
         }
 
-        END {
+        
+    }
+    
+    END {
             #intentionally empty
         }
-
-    }
-
 }
