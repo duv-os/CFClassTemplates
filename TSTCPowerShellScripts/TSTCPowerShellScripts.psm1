@@ -102,7 +102,7 @@ function New-TSTCStudentKeyPair {
         # Parameter help description
         [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
         [Alias('Students', 'Name', 'Names', 'UserName')]
-        [string]$Roster,
+        [string[]]$Roster,
 
         # Parameter help description
         [Parameter(Mandatory = $true)]
