@@ -89,6 +89,33 @@ function New-TSTCStudent {
 } #function
 
 function New-TSTCStudentKeyPair {
+    <#
+    .SYNOPSIS
+        Creates a new Key Pair for a student
+    .DESCRIPTION
+        This cmdlet will create a new Key Pair given a roster and then save the 
+        Key Pair to a location you specify.
+    .PARAMETER Roster
+        One or more student names in a class roster.   This parameter is required.
+    .PARAMETER Region
+        One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
+    .PARAMETER Class
+        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .PARAMETER Path
+        Specifies the path to the Key Pair output file.  This parameter is required.
+    .EXAMPLE
+        New-TSTCStudentKeyPair -Roster "Andy" -Class ITSE-1359-1001 -Region us-west-2 -path C:\temp
+        This example will create a new Key pair named ITSE-1359-1001-KP-Andy in the Oregon region
+        and save the Pem file to C:\Temp\ITSE-1359-1001-KP-Andy.pem
+    .EXAMPLE
+        New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
+        This example will create 3 new IAM users and will then create their key pairs
+        in the specified class and region.  Verbose output is also included.
+    .NOTES
+        Version      : 1.0.0
+        Last Updated : 1/2/2018
+        Script created by Andy Kroll, Lead Instructor CDM Department - TSTC in Waco
+    #>
     [cmdletbinding()]
     param(
         # Parameter help description
