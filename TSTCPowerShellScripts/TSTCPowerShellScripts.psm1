@@ -117,7 +117,7 @@ function New-TSTCStudentKeyPair {
     
     PROCESS {
         foreach ($student in $roster) {
-            Write-Verbose -InformationVariable "Creating Key Pair for $student"
+            Write-Verbose -message  "Creating Key Pair for $student"
             (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii $Path\$Class-KP-$student.pem
             Write-Verbose -Message "Key Pair created for $student and saved at $Path\$Class-KP-$student.pem "
         } #foreach
