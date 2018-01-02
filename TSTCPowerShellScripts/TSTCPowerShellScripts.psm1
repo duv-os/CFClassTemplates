@@ -89,6 +89,7 @@ function New-TSTCStudent {
 } #function
 
 function New-TSTCStudentKeyPair {
+    [cmdletbinding()]
     param(
         # Parameter help description
         [Parameter(Mandatory = $true)]
