@@ -89,6 +89,7 @@ function New-TSTCStudent {
 } #function
 
 function New-TSTCStudentKeyPair {
+    [cmdletbinding()]
     param(
         # Parameter help description
         [Parameter(Mandatory = $true)]
@@ -118,7 +119,7 @@ function New-TSTCStudentKeyPair {
             
             (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii $Path\$Class-KP-$student.pem
             Write-Verbose -Message "Key Pair created for $student"
-        }
+        } #foreach
 
         
     }
