@@ -111,7 +111,7 @@ function New-TSTCStudentKeyPair {
     )    
 
     
-    Begin {
+    BEGIN {
         #intentionally empty
     }
     
@@ -127,5 +127,23 @@ function New-TSTCStudentKeyPair {
     
     END {
         #intentionally empty
+    }
+}
+
+function Remove-TSTCStudentKeyPair {
+    [cmdletbinding()]
+    param(
+
+    )
+    BEGIN {
+        #intnetionally blank
+    }
+
+    PROCESS {
+
+    }
+
+    END {
+        #intentionally blank
     }
 }
