@@ -138,7 +138,7 @@ function Remove-TSTCStudentKeyPair {
         $Region,
         
         # Parameter help description
-        [Parameter(Mandatory = $true)]
+        [Parameter(ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
         $Class,
 
         # Parameter help description
@@ -162,7 +162,7 @@ function Remove-TSTCStudentKeyPair {
             }
             else {   
                 Write-Verbose -Message "[ELSE]    Removing $student Key Pair in $Region"
-                #Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"
+                Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"
                 Write-Verbose -Message "[ELSE]    Key Pair for $student removed" 
             }
         }
