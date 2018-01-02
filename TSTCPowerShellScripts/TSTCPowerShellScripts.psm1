@@ -154,7 +154,7 @@ function Remove-TSTCStudentKeyPair {
         foreach ($student in $Roster) {
 
             Write-Verbose -Message "[FOREACH]    About to run Get-Ec2KeyPair"
-            $KPCheck = Get-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"
+            $KPCheck = Get-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student" -ErrorAction SilentlyContinue
             Write-Verbose -Message "[FOREACH]    Finished running Get-Ec2KeyPair"
 
             if (-Not $KPCheck) {
