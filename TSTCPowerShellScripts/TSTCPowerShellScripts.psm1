@@ -161,9 +161,9 @@ function Remove-TSTCStudentKeyPair {
                 Write-Verbose -Message "[IF]    Key Pair $Class-KP-$student does not exist"
             }
             else {   
-                Write-Verbose -Message "[FOREACH]    Removing $student Key Pair in $Region"
+                Write-Verbose -Message "[ELSE]    Removing $student Key Pair in $Region"
                 #Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"
-                Write-Verbose -Message "[FOREACH]    Key Pair for $student removed" 
+                Write-Verbose -Message "[ELSE]    Key Pair for $student removed" 
             }
         }
     }
