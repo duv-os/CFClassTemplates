@@ -153,12 +153,12 @@ function Remove-TSTCStudentKeyPair {
     PROCESS {
         foreach ($student in $Roster) {
 
-            Write-Verbose -Message "[FOREACH}    About to run Get-Ec2KeyPair"
+            Write-Verbose -Message "[FOREACH]    About to run Get-Ec2KeyPair"
             $KPCheck = Get-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"
-            Write-Verbose -Message "[FOREACH}    Finished running Get-Ec2KeyPair"
+            Write-Verbose -Message "[FOREACH]    Finished running Get-Ec2KeyPair"
 
             if (-Not $KPCheck) {
-                Write-Verbose -Message "[IF]    Key Pair "$Class-KP-$student" does not exist"
+                Write-Verbose -Message "[IF]    Key Pair $Class-KP-$student does not exist"
             }
             else {   
                 Write-Verbose -Message "[FOREACH]    Removing $student Key Pair in $Region"
