@@ -133,14 +133,27 @@ function New-TSTCStudentKeyPair {
 function Remove-TSTCStudentKeyPair {
     [cmdletbinding()]
     param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet ("us-east-2", "us-east-1", "us-west-1", "us-west-2", "ca-central-1", "ap-south-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "eu-central-1", "eu-west-1", "eu-west-2", "sa-east-1")]
+        $Region,
+        
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        $Class,
 
+        # Parameter help description
+        [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
+        [Alias('Students', 'Name', 'Names', 'UserName')]
+        [string[]]$Roster
     )
     BEGIN {
         #intnetionally blank
     }
 
     PROCESS {
-
+        foreach ($student in $Roster) {
+            Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"            
+        }
     }
 
     END {
