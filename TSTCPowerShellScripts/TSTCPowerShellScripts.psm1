@@ -152,7 +152,9 @@ function Remove-TSTCStudentKeyPair {
 
     PROCESS {
         foreach ($student in $Roster) {
-            Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"            
+            Write-Verbose -Message "[FOREACH]    Removing $student Key Pair in $Region"
+            Remove-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student"           
+            Write-Verbose -Message "[FOREACH]    Key Pair for $student removed" 
         }
     }
 
