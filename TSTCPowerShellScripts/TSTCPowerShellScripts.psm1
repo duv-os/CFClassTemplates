@@ -158,6 +158,26 @@ function New-TSTCStudentKeyPair {
 }
 
 function Remove-TSTCStudentKeyPair {
+    <#
+    .SYNOPSIS
+        Removes a new Key Pair for a student
+    .DESCRIPTION
+        This cmdlet will Remove a Key Pair given a roster
+    .PARAMETER Roster
+        One or more student names in a class roster.   This parameter is required.
+    .PARAMETER Region
+        One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
+    .PARAMETER Class
+        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .EXAMPLE
+        Remove-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Roster "Clinttest","tonyatest" -Verbose
+        This example will remove the key pairs from the Oregon region for the users in the roster and 
+        will also provide verbose output
+    .NOTES
+        Version      : 1.0.0
+        Last Updated : 1/2/2018
+        Script created by Andy Kroll, Lead Instructor CDM Department - TSTC in Waco
+    #>
     [cmdletbinding()]
     param(
         [Parameter(Mandatory = $true)]
