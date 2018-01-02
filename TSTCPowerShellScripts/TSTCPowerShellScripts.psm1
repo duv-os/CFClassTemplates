@@ -219,3 +219,25 @@ function Remove-TSTCStudentKeyPair {
         #intentionally blank
     }
 }
+
+function Import-TSTCClassRoster {
+    [cmdletbinding()]
+    param(
+        # Enter the path to a txt file that contains user names for the class
+        [Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
+        [Alias('Students', 'Name', 'Names', 'UserName', 'Path')]
+        [string[]]$Roster
+    )
+
+    $CSV = Import-CSV $roster
+
+    #Loop through each row of the csv file, create variables for lowercase names, and save the results to a second csv file that contains lowercase usernames
+    foreach ($row in $csv) {
+        $FirstName = $row.'Name'.split(" ")[0]
+        $LastName = $row.'Name'.split(" ")[1]
+        $Username = $FirstName.substring(0, 1) + $lastname
+        $UsernameLower = $Username.ToLower()
+
+        $UsernameLower | Add-Content $outfile
+    }
+}
