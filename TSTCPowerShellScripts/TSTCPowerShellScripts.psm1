@@ -121,7 +121,7 @@ function New-TSTCStudentKeyPair {
             
             (New-EC2KeyPair -Region $Region -KeyName "$Class-KP-$student").KeyMaterial | out-file -Encoding ascii $Path\$Class-KP-$student.pem
             Write-Verbose -Message "Key Pair created for $student"
-        }
+        } #foreach
 
         END {
             #intentionally empty
