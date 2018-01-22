@@ -39,12 +39,12 @@ Parameters:
 Mappings:
   RegionMap:
     us-east-1:
-      "AMALINUX" : "ami-cb9ec1b1" # AMALINUX SEP 2016
+      "AMALINUX" : "ami-428aa838" # AMALINUX 2 JAN 2018
       "RH" : "ami-c998b6b2"
     us-east-2:
-      "AMALINUX" : "ami-caaf84af" # AMALINUX SEP 2016
+      "AMALINUX" : "ami-710e2414" # AMALINUX 2 JAN 2018
     us-west-1:
-      "AMALINUX" : "ami-95eeeef5" # AMALINUX SEP 2016
+      "AMALINUX" : "ami-4a787a2a" # AMALINUX 2 JAN 2018
       "RH" : "ami-66eec506"
     us-west-2:
       "AMALINUX" : "ami-b04e92d0" # AMALINUX SEP 2016
