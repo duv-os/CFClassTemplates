@@ -249,3 +249,184 @@ function Import-TSTCClassRoster {
         $UsernameLower | Add-Content $outfile
     }
 }
+
+function New-TSTCCFNStack {
+    <#
+    .SYNOPSIS
+        Creates a CloudFormation stack for student lab environments
+    .DESCRIPTION
+        This cmdlet will launch CloudFormation stacks to create lab environments
+        for students.
+    .PARAMETER Roster
+        One or more student names in a class roster.   This parameter is required.
+    .PARAMETER Region
+        One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
+    .PARAMETER Class
+        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .EXAMPLE
+        New-TSTCStudentKeyPair -Roster "Andy" -Class ITSE-1359-1001 -Region us-west-2 -path C:\temp
+        This example will create a new Key pair named ITSE-1359-1001-KP-Andy in the Oregon region
+        and save the Pem file to C:\Temp\ITSE-1359-1001-KP-Andy.pem
+    .EXAMPLE
+        New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
+        This example will create 3 new IAM users and will then create their key pairs
+        in the specified class and region.  Verbose output is also included.
+    .EXAMPLE
+        New-TSTCStudent -verbose -Roster (Get-Content "C:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1002\Roster.txt")  | New-TSTCStudentKeyPair -Region us-east-2 -Class ITSC-1316-1002 -Path C:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1002 -verbose
+        This will import a class roster from a txt file, create the students iam accounts and set their passwords and then 
+        pipe the users to New-TSTCStudentKeyPair and you will provide the region, class & Section, and path to store key pairs.
+    .EXAMPLE
+        New-TSTCStudentKeyPair -Class ITSC-1316-1001 -Region us-west-1 -Roster (Get-Content "E:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1001\Roster.txt") -Path E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1001
+        This will only make new Key Pairs.  You supply the class roster and give it a local path to save the Key Pairs to
+        and it will make the student's key pairs in the region you specify.
+    .NOTES
+        Version      : 1.0.0
+        Last Updated : 1/2/2018
+        Script created by Andy Kroll, Lead Instructor CDM Department - TSTC in Waco
+    #>
+    [cmdletbinding()]
+    param(
+        # Parameter help description
+        [Parameter(Mandatory = $True)]
+        [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
+        $Environment,
+
+        [Parameter(Mandatory = $True)]
+        [ValidateSet ("us-east-2", "us-east-1", "us-west-1", "us-west-2", "ca-central-1", "ap-south-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "eu-central-1", "eu-west-1", "eu-west-2", "sa-east-1")]
+        $Region = "ap-southeast-2",
+
+        [Parameter(Mandatory = $True)]
+        $Class = "ITSE-1359-1001",
+
+        $studentname,
+
+        $ClassRoster,
+
+        [ValidateSet ("AMALINUX", "SERVER2016", "RH")]
+        $ServerOS
+    )    
+
+    
+    BEGIN {
+
+        if ($ClassRoster) {
+            $roster = Get-Content $ClassRoster
+        }
+        elseif ($studentname) {
+            $roster = $studentname
+        }
+
+        $SharedInfTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/CLASS-sharedinfrastructure.yaml"
+        $AutoSubnetTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/autosubnet.yaml"
+        $PrivateDCTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPrivateDC.yaml"
+        $BastionTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPublic.yaml"
+    }
+    
+    PROCESS {
+
+        if ($Environment -eq "SharedInf") {
+            New-CFNStack -StackName "$Class-SharedInf" -TemplateURL $SharedInfTemplateURL -Region $Region 
+        }
+
+        elseif ($Environment -eq "AutoSubnet") {
+            Write-Verbose -Message "Getting Outputs from $Class-SharedInfStack"
+            $url = get-cfnstack -Region $Region | Where-Object {$_.StackName -like "*$Class*"} | Select-Object -expand  outputs | Where-Object {$_.OutputKey -eq "lambdabucket"}
+            Write-Verbose -Message "Copying autosubnet.zip file to s3 bucket"
+            Copy-S3Object -BucketName "cf-templates-1pkm851dfqt55-ap-southeast-2" -Key autosubnet.zip -DestinationKey autosubnet.zip -DestinationBucket $url.OutputValue -Region $Region
+            Write-Verbose -Message "Creating AutoSubnet CFN Stack"
+            New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL -Region $Region -Capability CAPABILITY_IAM
+        }
+        elseif ($Environment -eq "Bastion") {
+            foreach ($student in $roster) {
+                write-Verbose "Creating Public CFN stack for $student"
+                New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}) -Region $region
+                Write-Verbose "Finished creating stack for $student"
+                pause
+            }
+        }
+        elseif ($Environment -eq "Private") {
+            foreach ($student in $roster) {
+                write-Verbose "Creating Private DC CFN stack for $student"
+                New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
+                Write-Verbose "Finished creating stack for $student"
+                pause
+            }
+        }
+        else {
+            Write-Host "No environment to make!" -ForegroundColor Red
+        }
+
+    }
+    
+    END {
+        #intentionally empty
+    }
+}
+
+function Remove-TSTCCFNStack {
+    <#
+    .SYNOPSIS
+        Removes/Deletes a CloudFormation stack for student lab environments
+    .DESCRIPTION
+        This cmdlet will delete a CloudFormation stack used to make lab environments for students.
+    .PARAMETER Roster
+        One or more student names in a class roster.   This parameter is required.
+    .PARAMETER Region
+        One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
+    .PARAMETER Class
+        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .EXAMPLE
+        New-TSTCStudentKeyPair -Roster "Andy" -Class ITSE-1359-1001 -Region us-west-2 -path C:\temp
+        This example will create a new Key pair named ITSE-1359-1001-KP-Andy in the Oregon region
+        and save the Pem file to C:\Temp\ITSE-1359-1001-KP-Andy.pem
+    .EXAMPLE
+        New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
+        This example will create 3 new IAM users and will then create their key pairs
+        in the specified class and region.  Verbose output is also included.
+    .EXAMPLE
+        New-TSTCStudent -verbose -Roster (Get-Content "C:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1002\Roster.txt")  | New-TSTCStudentKeyPair -Region us-east-2 -Class ITSC-1316-1002 -Path C:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1002 -verbose
+        This will import a class roster from a txt file, create the students iam accounts and set their passwords and then 
+        pipe the users to New-TSTCStudentKeyPair and you will provide the region, class & Section, and path to store key pairs.
+    .EXAMPLE
+        New-TSTCStudentKeyPair -Class ITSC-1316-1001 -Region us-west-1 -Roster (Get-Content "E:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1001\Roster.txt") -Path E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1001
+        This will only make new Key Pairs.  You supply the class roster and give it a local path to save the Key Pairs to
+        and it will make the student's key pairs in the region you specify.
+    .NOTES
+        Version      : 1.0.0
+        Last Updated : 1/2/2018
+        Script created by Andy Kroll, Lead Instructor CDM Department - TSTC in Waco
+    #>
+    [cmdletbinding()]
+    param(
+        [Parameter(Mandatory = $True)]
+        [ValidateSet ("us-east-2", "us-east-1", "us-west-1", "us-west-2", "ca-central-1", "ap-south-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "eu-central-1", "eu-west-1", "eu-west-2", "sa-east-1")]
+        $region = "ap-southeast-2",
+    
+        [Parameter(Mandatory = $True)]
+        [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
+        $Environment
+    )    
+
+    
+    BEGIN {
+        #Intentionally blank
+    }
+    
+    PROCESS {
+
+        if ($Environment -eq "SharedInf") {
+            $bucket = get-cfnstack -Region $region | where {$_.StackName -like "*$Environment*"} | select -expand  outputs | Where {$_.OutputKey -eq "lambdabucket"}
+            Remove-S3Bucket -BucketName $bucket.OutputValue -deletebucketcontent -Force -Region $region
+            get-cfnstack -region $region | where {$_.stackname -like "*$Environment*"} | remove-cfnstack -region $region -Force
+        }
+        else {
+            Write-Verbose "Deleting CloudFormation Stack"
+            get-cfnstack -region $region | where {$_.stackname -like "*$Environment*"} | remove-cfnstack -region $region -Force
+        }
+
+    }
+    
+    END {
+        #intentionally empty
+    }
+}
