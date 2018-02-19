@@ -257,16 +257,32 @@ function New-TSTCCFNStack {
     .DESCRIPTION
         This cmdlet will launch CloudFormation stacks to create lab environments
         for students.
+
+        NOTE: As of now, the AutoSubnet stack has issues creating so you will need to manually
+        copy the autosubnet.zip file into the bucket the SharedInf stack creates.  You can look 
+        at the Outputs section of the SharedInf stack to see the bucket it created.
     .PARAMETER Roster
         One or more student names in a class roster.   This parameter is required.
     .PARAMETER Region
         One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
-    .PARAMETER Class
-        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .PARAMETER ClassRoster
+        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is optional.
+    .PARAMETER Studentname
+        The username of a student.  This will deploy just one stack for the specified student instead of
+        deploying the stack for the entire class.  This parameter is optional.  Use either the ClassRoster
+        parameter or the Studentname parameter.
+    .PARAMETER Environment
+        One of the CloudFormation environments you want to build.  Available options are SharedInf, AutoSubnet,
+        Bastion, Private.  Note: You must have a SharedInf stack before you can create an AutoSubnet stack and
+        you must have both of those before you can launch a Bastion or Private server stack.  
+        This parameter is required.
+    .PARAMETER ServerOS
+        The OS of the server you want to deploy.  Availalbe options are AMALINUX, SERVER2016, RH.  AMALINUX will deploy
+        Amazon Linux, SERVER2016 will deploy Windows Server 2016, RH will deploy Red Hat.
     .EXAMPLE
-        New-TSTCStudentKeyPair -Roster "Andy" -Class ITSE-1359-1001 -Region us-west-2 -path C:\temp
-        This example will create a new Key pair named ITSE-1359-1001-KP-Andy in the Oregon region
-        and save the Pem file to C:\Temp\ITSE-1359-1001-KP-Andy.pem
+        New-TSTCCFNStack -Region ap-southeast-1 -Class ITSC-1316-1001 -Environment SharedInf
+        This example will create  a new CloudFormation stack in the Sydney region using the SharedInf template.  This 
+        will create the infrastructure for the rest of the class to be deployed in.
     .EXAMPLE
         New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
         This example will create 3 new IAM users and will then create their key pairs
