@@ -280,7 +280,7 @@ function New-TSTCCFNStack {
         The OS of the server you want to deploy.  Availalbe options are AMALINUX, SERVER2016, RH.  AMALINUX will deploy
         Amazon Linux, SERVER2016 will deploy Windows Server 2016, RH will deploy Red Hat.
     .EXAMPLE
-        New-TSTCCFNStack -Region ap-southeast-1 -Class ITSC-1316-1001 -Environment SharedInf
+        New-TSTCCFNStack -Region ap-southeast-2 -Class ITSC-1316-1001 -Environment SharedInf
         This example will create  a new CloudFormation stack in the Sydney region using the SharedInf template.  This 
         will create the infrastructure for the rest of the class to be deployed in.
     .EXAMPLE
@@ -391,11 +391,11 @@ function Remove-TSTCCFNStack {
         One of the CloudFormation environments previously built.  Available options are SharedInf, AutoSubnet,
         Bastion, Private.  This parameter is required.
     .EXAMPLE
-        Remove-TSTCCFNStack -region ap-southeast-1 -Environment SharedInf
+        Remove-TSTCCFNStack -region ap-southeast-2 -Environment SharedInf
         This example will Remove the SharedInf CloudFormation stack in the Sydney region
     .EXAMPLE
         .EXAMPLE
-        Remove-TSTCCFNStack -region ap-southeast-1 -Environment AutoSubnet
+        Remove-TSTCCFNStack -region ap-southeast-2 -Environment AutoSubnet
         This example will Remove the AutoSubnet CloudFormation stack in the Sydney region
     .NOTES
         Version      : 1.0.0
