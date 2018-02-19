@@ -369,28 +369,18 @@ function Remove-TSTCCFNStack {
         Removes/Deletes a CloudFormation stack for student lab environments
     .DESCRIPTION
         This cmdlet will delete a CloudFormation stack used to make lab environments for students.
-    .PARAMETER Roster
-        One or more student names in a class roster.   This parameter is required.
     .PARAMETER Region
         One of the AWS Regions.  Use the AWS Region codes for the input.   This parameter is required.
-    .PARAMETER Class
-        The class and section (ITSE-1359-1001) this resource will be in.   This parameter is required.
+    .PARAMETER Environment
+        One of the CloudFormation environments previously built.  Available options are SharedInf, AutoSubnet,
+        Bastion, Private.  This parameter is required.
     .EXAMPLE
-        New-TSTCStudentKeyPair -Roster "Andy" -Class ITSE-1359-1001 -Region us-west-2 -path C:\temp
-        This example will create a new Key pair named ITSE-1359-1001-KP-Andy in the Oregon region
-        and save the Pem file to C:\Temp\ITSE-1359-1001-KP-Andy.pem
+        Remove-TSTCCFNStack -region ap-southeast-1 -Environment SharedInf
+        This example will Remove the SharedInf CloudFormation stack in the Sydney region
     .EXAMPLE
-        New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
-        This example will create 3 new IAM users and will then create their key pairs
-        in the specified class and region.  Verbose output is also included.
-    .EXAMPLE
-        New-TSTCStudent -verbose -Roster (Get-Content "C:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1002\Roster.txt")  | New-TSTCStudentKeyPair -Region us-east-2 -Class ITSC-1316-1002 -Path C:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1002 -verbose
-        This will import a class roster from a txt file, create the students iam accounts and set their passwords and then 
-        pipe the users to New-TSTCStudentKeyPair and you will provide the region, class & Section, and path to store key pairs.
-    .EXAMPLE
-        New-TSTCStudentKeyPair -Class ITSC-1316-1001 -Region us-west-1 -Roster (Get-Content "E:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1001\Roster.txt") -Path E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1001
-        This will only make new Key Pairs.  You supply the class roster and give it a local path to save the Key Pairs to
-        and it will make the student's key pairs in the region you specify.
+        .EXAMPLE
+        Remove-TSTCCFNStack -region ap-southeast-1 -Environment AutoSubnet
+        This example will Remove the AutoSubnet CloudFormation stack in the Sydney region
     .NOTES
         Version      : 1.0.0
         Last Updated : 1/2/2018
