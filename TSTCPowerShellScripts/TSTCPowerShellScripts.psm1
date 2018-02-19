@@ -1,4 +1,7 @@
 
+#To have PowerShell automatically import this module and cmdlet put the folder
+# in C:\Program Files\WindowsPowerShell\Modules
+#Or else you can use Import-Module and specify the path to the module folder.
 function New-TSTCStudent {
     <#
     .SYNOPSIS
