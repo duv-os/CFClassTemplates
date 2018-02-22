@@ -13,12 +13,14 @@ param (
 
     $studentname,
 
+    $ClassRoster,
+
     [ValidateSet ("AMALINUX","SERVER2016", "RH")]
     $ServerOS
 )
 
-if (!$studentname) {
-    $roster = Get-Content "E:\GoogleDrive\Classes\ITSE1359-PowerShell\Attendance\roster-lower.txt"
+if ($ClassRoster) {
+    $roster = Get-Content $ClassRoster
 }
 elseif ($studentname) {
     $roster = $studentname
