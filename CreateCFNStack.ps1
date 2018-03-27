@@ -2,7 +2,7 @@
 param (
     # Parameter help description
     [Parameter(Mandatory=$True)]
-    [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
+    [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private", "Lab11")]
     $Environment,
 
     [Parameter(Mandatory = $True)]
@@ -16,8 +16,11 @@ param (
 
     $ClassRoster,
 
-    [ValidateSet ("AMALINUX","SERVER2016", "RH")]
-    $ServerOS
+    [ValidateSet ("AMALINUX", "SERVER2016", "RH", "UBUNTU")]
+    $ServerOS,
+
+    [ValidateSet ("AMALINUX", "SERVER2016", "RH", "UBUNTU")]
+    $ServerOS2
 )
 
 if ($ClassRoster) {
@@ -32,6 +35,7 @@ $SharedInfTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1p
 $AutoSubnetTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/autosubnet.yaml"
 $PrivateDCTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPrivateDC.yaml"
 $BastionTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPublic.yaml"
+$Lab11TemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/Lab11.yaml"
 
 
 if ($Environment -eq "SharedInf") {
@@ -54,10 +58,18 @@ elseif ($Environment -eq "Bastion") {
         pause
     }
 }
+elseif ($Environment -eq "Lab11") {
+    foreach ($student in $roster) {
+        write-Verbose "Creating Lab11 CFN stack for $student"
+        New-CFNStack -Stackname "$Class-$student-$ServerOS-Lab11" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}) -Region $region
+        Write-Verbose "Finished creating stack for $student"
+        pause
+    }
+}
 elseif ($Environment -eq "Private") {
     foreach ($student in $roster) {
         write-Verbose "Creating Private DC CFN stack for $student"
-        New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}) -Region $region
+        New-CFNStack -Stackname "$Class-$student-PrivateServers" -TemplateURL $PrivateDCTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "SERVEROS2"; ParameterValue = "$ServerOS2"}) -Region $region
         Write-Verbose "Finished creating stack for $student"
         pause
     }
