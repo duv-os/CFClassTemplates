@@ -28,7 +28,7 @@ Parameters:
       - TEST
       - PROD
       - PRESALES
-  SERVEROS1:
+  SERVEROS:
     Type: String
     Description: Server Operating System to deploy 
     Default: AMALINUX
@@ -163,7 +163,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete
     Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS1] # Dynamic mapping + Pseudo Parameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref SERVEROS] # Dynamic mapping + Pseudo Parameter
       InstanceType: !FindInMap [InstanceSize, !Ref ENVIRONMENT, EC2]
       KeyName: !Join ["", [!Ref CLASS, "-", "KP", "-", !Ref STUDENTNAME]]
       IamInstanceProfile: Class-SSM-Role
@@ -182,7 +182,7 @@ Resources:
           Value: Bastion
         -
           Key: SERVEROS
-          Value: !Ref SERVEROS1
+          Value: !Ref SERVEROS
   EC22: # for now this is in a public subnet, needs to be changed.
     Type: "AWS::EC2::Instance"
     DeletionPolicy: Delete

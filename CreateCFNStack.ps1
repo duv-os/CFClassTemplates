@@ -61,7 +61,7 @@ elseif ($Environment -eq "Bastion") {
 elseif ($Environment -eq "Lab11") {
     foreach ($student in $roster) {
         write-Verbose "Creating Lab11 CFN stack for $student"
-        New-CFNStack -Stackname "$Class-$student-$ServerOS-Lab11" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}) -Region $region
+        New-CFNStack -Stackname "$Class-$student-Lab11" -TemplateURL $Lab11TemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "SERVEROS2"; ParameterValue = "$SERVEROS2"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}) -Region $region
         Write-Verbose "Finished creating stack for $student"
         pause
     }
