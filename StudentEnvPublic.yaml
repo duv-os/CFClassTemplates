@@ -130,6 +130,11 @@ Resources:
           IpProtocol: tcp
           ToPort: "3389"
           FromPort: "3389"
+        -
+          CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          ToPort: "631"
+          FromPort: "631"
       SecurityGroupEgress:
         -
           CidrIp: 0.0.0.0/0
