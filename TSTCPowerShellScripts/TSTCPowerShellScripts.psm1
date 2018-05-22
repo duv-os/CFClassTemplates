@@ -321,6 +321,8 @@ function New-TSTCCFNStack {
 
         $ClassRoster,
 
+        $ServerSize = "DEV", #This parameter maps to the ENVIRONMENT parameter in the StudentEnvPublic.yaml CloudFormation template.  DEV is a t2.micro PROD is a t2.medium
+
         [ValidateSet ("AMALINUX", "SERVER2016", "RH")]
         $ServerOS
     )    
@@ -358,7 +360,7 @@ function New-TSTCCFNStack {
         elseif ($Environment -eq "Bastion") {
             foreach ($student in $roster) {
                 write-Verbose "Creating Public CFN stack for $student"
-                New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}) -Region $region
+                New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$serversize"}) -Region $region
                 Write-Verbose "Finished creating stack for $student"
                 pause
             }
