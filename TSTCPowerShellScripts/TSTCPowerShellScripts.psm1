@@ -277,7 +277,8 @@ function New-TSTCCFNStack {
     .PARAMETER Environment
         One of the CloudFormation environments you want to build.  Available options are SharedInf, AutoSubnet,
         Bastion, Private.  Note: You must have a SharedInf stack before you can create an AutoSubnet stack and
-        you must have both of those before you can launch a Bastion or Private server stack.  
+        you must have both of those before you can launch a Bastion or Private server stack.  The valid values
+        for this parameter are SharedInf, AutoSubnet, Bastion, Private, Lab5
         This parameter is required.
     .PARAMETER ServerOS
         The OS of the server you want to deploy.  Availalbe options are AMALINUX, SERVER2016, RH.  AMALINUX will deploy
@@ -295,6 +296,12 @@ function New-TSTCCFNStack {
         New-TSTCCFNStack -Region us-west-2 -Environment bastion -Class ITSE-1359-1001 -ServerOS AMALINUX -studentname akroll
         This is the same as example #2 except this is how you can create just a single stack for one student instead
         of the entire class.
+    .EXAMPLE
+        New-TSTCCFNStack -Region us-west-2 -Environment Lab5 -Class ITSE-1359-1001 -ServerOS AMALINUX -studentname akroll
+        This will launch the Lab5 environment for the student akroll.
+    .EXAMPLE
+        New-TSTCCFNStack -Region us-west-2 -Environment Lab5 -Class ITSE-1359-1001 -ServerOS AMALINUX -ClassRoster "G:\My Drive\Classes\ITSE1359-PowerShell\Attendance\Roster.txt"
+        This will launch the Lab5 environment for all students in the class
     .NOTES
         Version      : 1.0.0
         Last Updated : 6/4/2018
@@ -304,7 +311,7 @@ function New-TSTCCFNStack {
     param(
         # Parameter help description
         [Parameter(Mandatory = $True)]
-        [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private")]
+        [ValidateSet ("SharedInf", "AutoSubnet", "Bastion", "Private", "Lab5")]
         $Environment,
 
         [Parameter(Mandatory = $True)]
@@ -338,6 +345,7 @@ function New-TSTCCFNStack {
         $AutoSubnetTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/autosubnet.yaml"
         $PrivateDCTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPrivateDC.yaml"
         $BastionTemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/StudentEnvPublic.yaml"
+        $Lab5TemplateURL = "https://s3-ap-southeast-2.amazonaws.com/cf-templates-1pkm851dfqt55-ap-southeast-2/Lab5.yaml"
     }
     
     PROCESS {
@@ -358,6 +366,14 @@ function New-TSTCCFNStack {
             foreach ($student in $roster) {
                 write-Verbose "Creating Public CFN stack for $student"
                 New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$serversize"}) -Region $region
+                Write-Verbose "Finished creating stack for $student"
+                pause
+            }
+        }
+        elseif ($Environment -eq "Lab5") {
+            foreach ($student in $roster) {
+                write-Verbose "Creating Lab5 CFN stack for $student"
+                New-CFNStack -Stackname "$Class-$student-$ServerOS-Lab5" -TemplateURL $Lab5TemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$serversize"}) -Region $region
                 Write-Verbose "Finished creating stack for $student"
                 pause
             }
