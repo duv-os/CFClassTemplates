@@ -290,6 +290,11 @@ function New-TSTCCFNStack {
         New-TSTCCFNStack -Region us-west-2 -Environment bastion -Class ITSE-1359-1001 -ServerOS AMALINUX -ClassRoster "G:\My Drive\Classes\ITSE1359-PowerShell\Attendance\Roster.txt"
         This example will create new CloudFormation stacks in the Oregon region.  Note that the class roster text file
         should have the student names as first initial last name (ex: akroll) and the key pairs should already exist.
+        Use this example if you need to build the entire class's cloud formation templates.
+    .EXAMPLE
+        New-TSTCCFNStack -Region us-west-2 -Environment bastion -Class ITSE-1359-1001 -ServerOS AMALINUX -studentname akroll
+        This is the same as example #2 except this is how you can create just a single stack for one student instead
+        of the entire class.
     .NOTES
         Version      : 1.0.0
         Last Updated : 6/4/2018
