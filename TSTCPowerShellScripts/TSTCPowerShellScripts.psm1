@@ -287,17 +287,9 @@ function New-TSTCCFNStack {
         This example will create  a new CloudFormation stack in the Sydney region using the SharedInf template.  This 
         will create the infrastructure for the rest of the class to be deployed in.
     .EXAMPLE
-        New-TSTCStudent -verbose -Roster "andytest","Clinttest","tonyatest" | New-TSTCStudentKeyPair -Region us-west-2 -Class ITSE-1359-1001 -Path c:\temp -verbose
-        This example will create 3 new IAM users and will then create their key pairs
-        in the specified class and region.  Verbose output is also included.
-    .EXAMPLE
-        New-TSTCStudent -verbose -Roster (Get-Content "C:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1002\Roster.txt")  | New-TSTCStudentKeyPair -Region us-east-2 -Class ITSC-1316-1002 -Path C:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1002 -verbose
-        This will import a class roster from a txt file, create the students iam accounts and set their passwords and then 
-        pipe the users to New-TSTCStudentKeyPair and you will provide the region, class & Section, and path to store key pairs.
-    .EXAMPLE
-        New-TSTCStudentKeyPair -Class ITSC-1316-1001 -Region us-west-1 -Roster (Get-Content "E:\GoogleDrive\Classes\ITSC1316-Linux\Attendance\1001\Roster.txt") -Path E:\GoogleDrive\Classes\ITSC1316-Linux\KeyPairs\1001
-        This will only make new Key Pairs.  You supply the class roster and give it a local path to save the Key Pairs to
-        and it will make the student's key pairs in the region you specify.
+        New-TSTCCFNStack -Region us-west-2 -Environment bastion -Class ITSE-1359-1001 -ServerOS AMALINUX -ClassRoster "G:\My Drive\Classes\ITSE1359-PowerShell\Attendance\Roster.txt"
+        This example will create new CloudFormation stacks in the Oregon region.  Note that the class roster text file
+        should have the student names as first initial last name (ex: akroll) and the key pairs should already exist.
     .NOTES
         Version      : 1.0.0
         Last Updated : 1/2/2018
