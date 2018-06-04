@@ -292,7 +292,7 @@ function New-TSTCCFNStack {
         should have the student names as first initial last name (ex: akroll) and the key pairs should already exist.
     .NOTES
         Version      : 1.0.0
-        Last Updated : 1/2/2018
+        Last Updated : 6/4/2018
         Script created by Andy Kroll, Lead Instructor CDM Department - TSTC in Waco
     #>
     [cmdletbinding()]
