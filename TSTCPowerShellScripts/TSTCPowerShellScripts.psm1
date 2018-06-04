@@ -283,6 +283,10 @@ function New-TSTCCFNStack {
     .PARAMETER ServerOS
         The OS of the server you want to deploy.  Availalbe options are AMALINUX, SERVER2016, RH.  AMALINUX will deploy
         Amazon Linux, SERVER2016 will deploy Windows Server 2016, RH will deploy Red Hat.
+    .PARAMETER ServerSize
+        This parameter will be mapped to the Environment parameter of the CloudFormation template.  Everything 
+        is a t2.micro except the PROD value which will launch a t2.medium instance.  Make sure that this value 
+        is in ALL CAPS when you specify it or else it will error out.
     .EXAMPLE
         New-TSTCCFNStack -Region ap-southeast-2 -Class ITSC-1316-1001 -Environment SharedInf
         This example will create  a new CloudFormation stack in the Sydney region using the SharedInf template.  This 
