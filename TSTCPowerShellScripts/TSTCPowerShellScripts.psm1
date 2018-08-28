@@ -368,16 +368,18 @@ function New-TSTCCFNStack {
         }
         elseif ($Environment -eq "Bastion") {
             foreach ($student in $roster) {
+                $ServerSizeUpper = $serversize.toupper()
                 write-Verbose "Creating Public CFN stack for $student"
-                New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$serversize"}) -Region $region
+                New-CFNStack -Stackname "$Class-$student-$ServerOS-Bastion" -TemplateURL $BastionTemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$ServerSizeUpper"}) -Region $region
                 Write-Verbose "Finished creating stack for $student"
                 pause
             }
         }
         elseif ($Environment -eq "Lab5") {
             foreach ($student in $roster) {
+                $ServerSizeUpper = $serversize.toupper()
                 write-Verbose "Creating Lab5 CFN stack for $student"
-                New-CFNStack -Stackname "$Class-$student-$ServerOS-Lab5" -TemplateURL $Lab5TemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$serversize"}) -Region $region
+                New-CFNStack -Stackname "$Class-$student-$ServerOS-Lab5" -TemplateURL $Lab5TemplateURL -Parameter @( @{ ParameterKey = "STUDENTNAME"; ParameterValue = "$student" }, @{ ParameterKey = "SERVEROS"; ParameterValue = "$ServerOS"}, @{ ParameterKey = "CLASS"; ParameterValue = "$class"}, @{ ParameterKey = "ENVIRONMENT"; ParameterValue = "$ServerSizeUpper"}) -Region $region
                 Write-Verbose "Finished creating stack for $student"
                 pause
             }
