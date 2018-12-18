@@ -362,7 +362,7 @@ function New-TSTCCFNStack {
             Write-Verbose -Message "Getting Outputs from $Class-SharedInfStack"
             $url = get-cfnstack -Region $Region | Where-Object {$_.StackName -like "*$Class*"} | Select-Object -expand  outputs | Where-Object {$_.OutputKey -eq "lambdabucket"}
             Write-Verbose -Message "Copying autosubnet.zip file to s3 bucket"
-            Copy-S3Object -BucketName "cf-templates-1pkm851dfqt55-ap-southeast-2" -Key autosubnet.zip -DestinationKey autosubnet.zip -DestinationBucket $url.OutputValue -Region $Region
+            Copy-S3Object -BucketName autosubnetcode-$Region -Key autosubnet.zip -DestinationKey autosubnet.zip -DestinationBucket $url.OutputValue -Region $Region
             Write-Verbose -Message "Creating AutoSubnet CFN Stack"
             New-CFNStack -StackName "$Class-AutoSubnet" -TemplateURL $AutoSubnetTemplateURL -Region $Region -Capability CAPABILITY_IAM
         }
@@ -460,3 +460,6 @@ function Remove-TSTCCFNStack {
         #intentionally empty
     }
 }
+
+
+
